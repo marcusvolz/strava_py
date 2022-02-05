@@ -1,5 +1,5 @@
 # strava_py
-Create artistic visualisations with your exercise data (Python version)
+Create artistic visualisations with your exercise data (Python version).
 
 This is a port of the [R strava package](https://github.com/marcusvolz/strava) to Python.
 
@@ -9,7 +9,7 @@ This is a port of the [R strava package](https://github.com/marcusvolz/strava) t
 
 A plot of activities as small multiples. The concept behind this plot was originally inspired by [Sisu](https://twitter.com/madewithsisu).
 
-![facets](https://github.com/marcusvolz/strava_py/blob/master/inst/plots/facets001.png "Facets, showing activity outlines")
+![facets](https://github.com/marcusvolz/strava_py/blob/main/plots/facets001.png "Facets, showing activity outlines")
 
 ## How to use
 
