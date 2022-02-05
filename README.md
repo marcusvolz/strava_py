@@ -27,7 +27,7 @@ The process for downloading data is described on the Strava website here: [https
 
 ### Process the data
 
-The main function for importing and processing activity files expects a path to a directory of unzipped GPX and / or FIT files. If required, the [fit2gpx](https://github.com/dodo-saba/fit2gpx) package provides useful tools for pre-processing bulk files exported from Stava, e.g. unzipping activity files (see Use Case 3: Strava Bulk Export Tools).
+The main function for importing and processing activity files expects a path to a directory of unzipped GPX and / or FIT files. If required, the [fit2gpx](https://github.com/dodo-saba/fit2gpx) package provides useful tools for pre-processing bulk files exported from Strava, e.g. unzipping activity files (see Use Case 3: Strava Bulk Export Tools).
 
 ```python
 df = process_data(<path to folder with GPX and / or FIT files>)
