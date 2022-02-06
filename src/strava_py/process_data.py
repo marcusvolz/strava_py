@@ -3,6 +3,7 @@ import glob
 import fit2gpx
 import gpxpy
 import pandas as pd
+from rich.progress import track
 
 
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
@@ -56,7 +57,7 @@ def process_data(path):
     # Process all files (GPX or FIT)
     processed = []
 
-    for fpath in glob.iglob(path):
+    for fpath in track(glob.glob(path), description="Processing:"):
         if fpath.endswith('.gpx'):
             processed.append(process_gpx(fpath))
         elif fpath.endswith('.fit'):
