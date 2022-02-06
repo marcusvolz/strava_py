@@ -1,7 +1,9 @@
+import glob
+
 import fit2gpx
 import gpxpy
-import os.path
 import pandas as pd
+from rich.progress import track
 
 
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
@@ -54,15 +56,14 @@ def process_data(path):
     
     # Process all files (GPX or FIT)
     processed = []
-    
-    for file in os.listdir(path):
-        fpath = path + '/' + file
+
+    for fpath in track(glob.glob(path), description="Processing:"):
         if fpath.endswith('.gpx'):
             processed.append(process_gpx(fpath))
         elif fpath.endswith('.fit'):
             processed.append(process_fit(fpath))
-        print('Processing: ' + file)
-    
+        print('Processing: ' + fpath)
+
     df = pd.concat(processed)
     
     df['time'] = pd.to_datetime(df['time'], utc = True)
