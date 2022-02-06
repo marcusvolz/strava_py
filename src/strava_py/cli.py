@@ -1,15 +1,23 @@
 import argparse
-
+import os.path
 
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument("path", help="Input path to folder with GPX and / or FIT files")
+    parser.add_argument(
+        "path", help="Input path specification to folder with GPX and / or FIT files"
+    )
     parser.add_argument(
         "-o", "--output_file", default="plot.png", help="Output PNG file"
     )
     args = parser.parse_args()
+
+    if os.path.isdir(args.path):
+        args.path = os.path.join(args.path, "*")
+
+    # Expand "~" or "~user"
+    args.path = os.path.expanduser(args.path)
 
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first

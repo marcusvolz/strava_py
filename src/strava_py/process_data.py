@@ -1,6 +1,7 @@
+import glob
+
 import fit2gpx
 import gpxpy
-import os.path
 import pandas as pd
 
 
@@ -54,15 +55,14 @@ def process_data(path):
     
     # Process all files (GPX or FIT)
     processed = []
-    
-    for file in os.listdir(path):
-        fpath = path + '/' + file
+
+    for fpath in glob.iglob(path):
         if fpath.endswith('.gpx'):
             processed.append(process_gpx(fpath))
         elif fpath.endswith('.fit'):
             processed.append(process_fit(fpath))
-        print('Processing: ' + file)
-    
+        print('Processing: ' + fpath)
+
     df = pd.concat(processed)
     
     df['time'] = pd.to_datetime(df['time'], utc = True)
