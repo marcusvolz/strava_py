@@ -11,6 +11,12 @@ A plot of activities as small multiples. The concept behind this plot was origin
 
 ![facets](https://github.com/marcusvolz/strava_py/blob/main/plots/facets001.png "Facets, showing activity outlines")
 
+### Map
+
+A map of activities viewed in plan.
+
+![map](https://github.com/marcusvolz/strava_py/blob/main/plots/map001.png "A map of activities viewed in plan.")
+
 ## How to use
 
 ### Bulk export from Strava
@@ -37,4 +43,11 @@ df = process_data(<path to folder with GPX and / or FIT files>)
 
 ```python
 plot_facets(df, output_file = 'plot.png')
+```
+
+### Plot activity map
+
+```python
+plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
+             alpha=0.3, linewidth=0.3, output_file="map.png")
 ```
