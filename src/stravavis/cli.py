@@ -10,7 +10,7 @@ def main():
         "path", help="Input path specification to folder with GPX and / or FIT files"
     )
     parser.add_argument(
-        "-o", "--output_file", default="plot.png", help="Output PNG file"
+        "-o", "--output_prefix", default="strava", help="Prefix for output PNG files"
     )
     parser.add_argument("--lon_min", default=None, help="Minimum longitude for plot_map (values less than this are removed from the data)")
     parser.add_argument("--lon_max", default=None, help="Maximum longitude for plot_map (values greater than this are removed from the data)")
@@ -37,16 +37,19 @@ def main():
     df = process_data(args.path)
 
     print("Plotting facets...")
-    plot_facets(df, output_file=args.output_file)
-    print(f"Saved to {args.output_file}")
+    outfile = f"{args.output_prefix}-facets.png"
+    plot_facets(df, output_file=outfile)
+    print(f"Saved to {outfile}")
 
     print("Plotting map...")
-    plot_map(df, output_file=args.output_file)
-    print(f"Saved to {args.output_file}")
+    outfile = f"{args.output_prefix}-map.png"
+    plot_map(df, output_file=outfile)
+    print(f"Saved to {outfile}")
 
     print("Plotting elevations...")
-    plot_elevations(df, output_file=args.output_file)
-    print(f"Saved to {args.output_file}")
+    outfile = f"{args.output_prefix}-elevations.png"
+    plot_elevations(df, output_file=outfile)
+    print(f"Saved to {outfile}")
 
 
 if __name__ == "__main__":
