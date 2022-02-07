@@ -11,12 +11,12 @@ def main():
     parser.add_argument(
         "-o", "--output_file", default="plot.png", help="Output PNG file"
     )
-    parser.add_argument("lon_min", default=None, help="Minimum longitude for plot_map (values less than this are removed from the data)")
-    parser.add_argument("lon_max", default=None, help="Maximum longitude for plot_map (values greater than this are removed from the data)")
-    parser.add_argument("lat_min", default=None, help="Minimum latitude for plot_map (values less than this are removed from the data)")
-    parser.add_argument("lat_max", default=None, help="Maximum latitude for plot_map (values greater than this are removed from the data)")
-    parser.add_argument("alpha", default=0.4, help="Line transparency. 0 = Fully transparent, 1 = No transparency")
-    parser.add_argument("linewidth", default=0.4, help="Line width")
+    parser.add_argument("--lon_min", default=None, help="Minimum longitude for plot_map (values less than this are removed from the data)")
+    parser.add_argument("--lon_max", default=None, help="Maximum longitude for plot_map (values greater than this are removed from the data)")
+    parser.add_argument("--lat_min", default=None, help="Minimum latitude for plot_map (values less than this are removed from the data)")
+    parser.add_argument("--lat_max", default=None, help="Maximum latitude for plot_map (values greater than this are removed from the data)")
+    parser.add_argument("--alpha", default=0.4, help="Line transparency. 0 = Fully transparent, 1 = No transparency")
+    parser.add_argument("--linewidth", default=0.4, help="Line width")
     args = parser.parse_args()
 
     if os.path.isdir(args.path):
