@@ -17,6 +17,12 @@ A map of activities viewed in plan.
 
 ![map](https://github.com/marcusvolz/strava_py/blob/main/plots/map001.png "A map of activities viewed in plan.")
 
+### Elevations
+
+A plot of activity elevation profiles as small multiples.
+
+![map](https://github.com/marcusvolz/strava_py/blob/main/plots/elevations001.png "A plot of activity elevation profiles as small multiples.")
+
 ## How to use
 
 ### Bulk export from Strava
@@ -50,4 +56,10 @@ plot_facets(df, output_file = 'plot.png')
 ```python
 plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
              alpha=0.3, linewidth=0.3, output_file="map.png")
+```
+
+### Plot elevations
+
+```python
+plot_elevations(df, output_file = 'elevations.png')
 ```
