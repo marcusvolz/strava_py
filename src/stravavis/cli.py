@@ -41,7 +41,7 @@ def main():
     print(f"Saved to {args.output_file}")
 
     print("Plotting map...")
-    plot_facets(df, output_file=args.output_file)
+    plot_map(df, output_file=args.output_file)
     print(f"Saved to {args.output_file}")
 
     print("Plotting elevations...")
