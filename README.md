@@ -61,5 +61,5 @@ plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
 ### Plot elevations
 
 ```python
-plot_facets(df, output_file = 'elevations.png')
+plot_elevations(df, output_file = 'elevations.png')
 ```
