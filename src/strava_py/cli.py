@@ -27,6 +27,7 @@ def main():
 
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
+    from strava_py.plot_elevations import plot_elevations
     from strava_py.plot_map import plot_map
     from strava_py.plot_facets import plot_facets
     from strava_py.process_data import process_data
@@ -40,6 +41,10 @@ def main():
 
     print("Plotting map...")
     plot_facets(df, output_file=args.output_file)
+    print(f"Saved to {args.output_file}")
+
+    print("Plotting elevations...")
+    plot_elevations(df, output_file=args.output_file)
     print(f"Saved to {args.output_file}")
 
 

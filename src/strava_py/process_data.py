@@ -2,6 +2,7 @@ import glob
 
 import fit2gpx
 import gpxpy
+import math
 import pandas as pd
 from rich.progress import track
 
@@ -20,9 +21,13 @@ def process_data(path):
         ele = []
         time = []
         name = []
+        dist = []
 
         for track in activity.tracks:
             for segment in track.segments:
+                x0 = activity.tracks[0].segments[0].points[0].longitude
+                y0 = activity.tracks[0].segments[0].points[0].latitude
+                d0 = 0
                 for point in segment.points:
                     x = point.longitude
                     y = point.latitude
@@ -33,10 +38,15 @@ def process_data(path):
                     ele.append(z)
                     time.append(t)
                     name.append(gpxfile)
+                    d = d0 + math.sqrt(math.pow(x - x0, 2) + math.pow(y - y0, 2))
+                    dist.append(d)
+                    x0 = x
+                    y0 = y
+                    d0 = d
         
         df = pd.DataFrame(
-                list(zip(lon, lat, ele, time, name)),
-                columns = ['lon', 'lat', 'ele', 'time', 'name']
+                list(zip(lon, lat, ele, time, name, dist)),
+                columns = ['lon', 'lat', 'ele', 'time', 'name', 'dist']
             )
         
         return df
@@ -48,7 +58,26 @@ def process_data(path):
         df_lap, df = conv.fit_to_dataframes(fname = fitfile)
         
         df['name'] = fitfile
-        df = df[['longitude', 'latitude', 'altitude', 'timestamp', 'name']]
+        
+        dist = []
+        
+        for i in range(len(df.index)):
+            if i < 1:
+                x0 = df['longitude'][0]
+                y0 = df['latitude'][0]
+                d0 = 0
+                dist.append(d0)
+            else:
+                x = df['longitude'][i]
+                y = df['latitude'][i]
+                d = d0 + math.sqrt(math.pow(x - x0, 2) + math.pow(y - y0, 2))
+                dist.append(d)
+                x0 = x
+                y0 = y
+                d0 = d
+        
+        df = df.join(pd.DataFrame({'dist': dist}))
+        df = df[['longitude', 'latitude', 'altitude', 'timestamp', 'name', 'dist']]
         df = df.rename(columns = {'longitude': 'lon', 'latitude': 'lat', 'altitude': 'ele', 'timestamp': 'time'})
         
         return df
