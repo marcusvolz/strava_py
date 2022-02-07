@@ -1,6 +1,7 @@
 import argparse
 import os.path
 
+
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -27,10 +28,10 @@ def main():
 
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
-    from strava_py.plot_elevations import plot_elevations
-    from strava_py.plot_map import plot_map
-    from strava_py.plot_facets import plot_facets
-    from strava_py.process_data import process_data
+    from stravavis.plot_elevations import plot_elevations
+    from stravavis.plot_facets import plot_facets
+    from stravavis.plot_map import plot_map
+    from stravavis.process_data import process_data
 
     print("Processing data...")
     df = process_data(args.path)
