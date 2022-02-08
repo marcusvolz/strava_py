@@ -23,6 +23,12 @@ A plot of activity elevation profiles as small multiples.
 
 ![map](https://github.com/marcusvolz/strava_py/blob/main/plots/elevations001.png "A plot of activity elevation profiles as small multiples")
 
+### Landscape
+
+Elevation profiles superimposed.
+
+![map](https://github.com/marcusvolz/strava_py/blob/main/plots/landscape001.png "Elevation profiles superimposed")
+
 ## How to use
 
 ### Bulk export from Strava
@@ -62,4 +68,10 @@ plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
 
 ```python
 plot_elevations(df, output_file = 'elevations.png')
+```
+
+### Plot landscape
+
+```python
+plot_landscape(df, output_file = 'landscape.png')
 ```
