@@ -20,17 +20,17 @@ def main():
     parser.add_argument("--linewidth", default=0.4, help="Line width")
     args = parser.parse_args()
 
-    if os.path.isdir(args.path):
-        args.path = os.path.join(args.path, "*")
-
     # Expand "~" or "~user"
     args.path = os.path.expanduser(args.path)
 
+    if os.path.isdir(args.path):
+        args.path = os.path.join(args.path, "*")
+
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
-    from stravavis.plot_landscape import plot_landscape
     from stravavis.plot_elevations import plot_elevations
     from stravavis.plot_facets import plot_facets
+    from stravavis.plot_landscape import plot_landscape
     from stravavis.plot_map import plot_map
     from stravavis.process_data import process_data
 
