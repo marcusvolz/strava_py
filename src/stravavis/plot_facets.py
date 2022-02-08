@@ -2,8 +2,11 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def plot_elevations(df, output_file = 'elevations.png'):
-    
+def plot_facets(df, output_file = 'plot.png'):
+
+    # Create a new figure
+    plt.figure()
+
     # Compute activity start times (for facet ordering)
     start_times = df.groupby('name').agg({'time': 'min'}).reset_index().sort_values('time')
     ncol = math.ceil(math.sqrt(len(start_times)))
@@ -15,14 +18,14 @@ def plot_elevations(df, output_file = 'elevations.png'):
         col_wrap = ncol,
         col_order = start_times['name'],
         sharex = False,
-        sharey = True,
+        sharey = False,
         )
-    
+
     # Add activities
     p = p.map(
-        plt.plot, "dist", "ele", color = 'black', linewidth = 4
+        plt.plot, "lon", "lat", color = 'black', linewidth = 4
         )
-    
+
     # Update plot aesthetics
     p.set(xlabel = None)
     p.set(ylabel = None)
