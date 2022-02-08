@@ -2,7 +2,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def plot_landscape(df, output_file = 'landscape.png'):
-    
+
+    # Create a new figure
+    plt.figure()
+
     # Convert ele to numeric
     df['ele'] = pd.to_numeric(df['ele'])
     
