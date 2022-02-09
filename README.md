@@ -29,6 +29,12 @@ Elevation profiles superimposed.
 
 ![map](https://github.com/marcusvolz/strava_py/blob/main/plots/landscape001.png "Elevation profiles superimposed")
 
+### Calendar
+
+Calendar heatmap showing daily activity distance, using the [calmap](https://pythonhosted.org/calmap/) package.
+
+![map](https://github.com/marcusvolz/strava_py/blob/main/plots/calendar001.png "Calendar heatmap")
+
 ## How to use
 
 ### Bulk export from Strava
@@ -48,7 +54,13 @@ The process for downloading data is described on the Strava website here: [https
 The main function for importing and processing activity files expects a path to a directory of unzipped GPX and / or FIT files. If required, the [fit2gpx](https://github.com/dodo-saba/fit2gpx) package provides useful tools for pre-processing bulk files exported from Strava, e.g. unzipping activity files (see Use Case 3: Strava Bulk Export Tools).
 
 ```python
-df = process_data(<path to folder with GPX and / or FIT files>)
+df = process_data("<path to folder with GPX and / or FIT files>")
+```
+
+Some plots use the "activities.csv" file from the Strava bulk export zip. For those plots, create an "activities" dataframe using the following function:
+
+```python
+activities = process_activities("<path to activities.csv file>")
 ```
 
 ### Plot activities as small multiples
@@ -74,4 +86,11 @@ plot_elevations(df, output_file = 'elevations.png')
 
 ```python
 plot_landscape(df, output_file = 'landscape.png')
+```
+
+### Plot calendar
+
+```python
+plot_calendar(activities, year_min=2015, year_max=2017, max_dist=50,
+              fig_height=9, fig_width=15, output_file="calendar.png")
 ```
