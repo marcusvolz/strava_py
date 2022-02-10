@@ -45,6 +45,7 @@ def main():
     print("Processing data...")
     df = process_data(args.path)
 
+    activities = None
     if args.activities_path:
         print("Processing activities...")
         activities = process_activities(args.activities_path)
