@@ -14,10 +14,10 @@ def plot_calendar(activities, year_min=None, year_max=None, max_dist=None,
     activities.index = pd.to_datetime(activities.index)
     activities.clip(0, max_dist, inplace=True)
     
-    if year_min is not None:
+    if year_min:
         activities = activities[activities.index.year>=year_min]
     
-    if year_max is not None:
+    if year_max:
         activities = activities[activities.index.year<=year_max]
     
     # Create heatmap
