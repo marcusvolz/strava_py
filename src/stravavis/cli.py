@@ -46,7 +46,7 @@ def main():
     df = process_data(args.path)
 
     print("Processing activities...")
-    activities = process_activities(activities_path)
+    activities = process_activities(args.activities_path)
 
     print("Plotting facets...")
     outfile = f"{args.output_prefix}-facets.png"
