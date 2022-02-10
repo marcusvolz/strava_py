@@ -45,8 +45,9 @@ def main():
     print("Processing data...")
     df = process_data(args.path)
 
-    print("Processing activities...")
-    activities = process_activities(args.activities_path)
+    if args.activities_path:
+        print("Processing activities...")
+        activities = process_activities(args.activities_path)
 
     print("Plotting facets...")
     outfile = f"{args.output_prefix}-facets.png"
@@ -67,11 +68,12 @@ def main():
     outfile = f"{args.output_prefix}-landscape.png"
     plot_landscape(df, output_file=outfile)
     print(f"Saved to {outfile}")
-
-    print("Plotting calendar...")
-    outfile = f"{args.output_prefix}-calendar.png"
-    plot_calendar(activities, output_file=outfile)
-    print(f"Saved to {outfile}")
+    
+    if activities:
+        print("Plotting calendar...")
+        outfile = f"{args.output_prefix}-calendar.png"
+        plot_calendar(activities, output_file=outfile)
+        print(f"Saved to {outfile}")
 
 
 if __name__ == "__main__":
