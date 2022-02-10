@@ -69,8 +69,8 @@ def main():
     outfile = f"{args.output_prefix}-landscape.png"
     plot_landscape(df, output_file=outfile)
     print(f"Saved to {outfile}")
-    
-    if activities:
+
+    if activities is not None:
         print("Plotting calendar...")
         outfile = f"{args.output_prefix}-calendar.png"
         plot_calendar(activities, output_file=outfile)
