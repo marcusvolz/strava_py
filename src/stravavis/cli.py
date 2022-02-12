@@ -24,6 +24,7 @@ def main():
     parser.add_argument("--max_dist", help="Maximum daily distance for the calendar heatmap; values above this will be capped.")
     parser.add_argument("--fig_height", help="Figure height for the calendar heatmap.")
     parser.add_argument("--fig_width", help="Figure width for the calendar heatmap.")
+    parser.add_argument("--local_timezone", help="Timezone for determining local times for activities. See pytz.all_timezones for a list of all timezones.")
     args = parser.parse_args()
 
     # Expand "~" or "~user"
@@ -35,6 +36,7 @@ def main():
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
     from stravavis.plot_calendar import plot_calendar
+    from stravavis.plot_dumbbell import plot_dumbbell
     from stravavis.plot_elevations import plot_elevations
     from stravavis.plot_facets import plot_facets
     from stravavis.plot_landscape import plot_landscape
@@ -74,6 +76,12 @@ def main():
         print("Plotting calendar...")
         outfile = f"{args.output_prefix}-calendar.png"
         plot_calendar(activities, output_file=outfile)
+        print(f"Saved to {outfile}")
+    
+    if activities is not None:
+        print("Plotting dumbbell...")
+        outfile = f"{args.output_prefix}-dumbbell.png"
+        plot_dumbbell(activities, output_file=outfile)
         print(f"Saved to {outfile}")
 
 

@@ -31,9 +31,15 @@ Elevation profiles superimposed.
 
 ### Calendar
 
-Calendar heatmap showing daily activity distance, using the [calmap](https://pythonhosted.org/calmap/) package.
+Calendar heatmap showing daily activity distance, using the [calmap](https://pythonhosted.org/calmap/) package. Requires "activities.csv" from the bulk Strava export.
 
 ![map](https://github.com/marcusvolz/strava_py/blob/main/plots/calendar001.png "Calendar heatmap")
+
+### Dumbbell plot
+
+Activities shown as horizontal lines by time of day and day of year, facetted by year. Requires "activities.csv" from the bulk Strava export.
+
+![map](https://github.com/marcusvolz/strava_py/blob/main/plots/dumbbell001.png "Dumbbell plot")
 
 ## How to use
 
@@ -93,4 +99,11 @@ plot_landscape(df, output_file = 'landscape.png')
 ```python
 plot_calendar(activities, year_min=2015, year_max=2017, max_dist=50,
               fig_height=9, fig_width=15, output_file="calendar.png")
+```
+
+### Plot dumbbell
+
+```python
+plot_dumbbell(activities, year_min=2012, year_max=2015, local_timezone='Australia/Melbourne',
+              fig_height=34, fig_width=34, output_file="dumbbell.png")
 ```
