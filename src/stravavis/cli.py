@@ -78,7 +78,6 @@ def main():
         plot_calendar(activities, output_file=outfile)
         print(f"Saved to {outfile}")
     
-    if activities is not None:
         print("Plotting dumbbell...")
         outfile = f"{args.output_prefix}-dumbbell.png"
         plot_dumbbell(activities, output_file=outfile)
