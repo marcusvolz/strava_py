@@ -33,6 +33,9 @@ def main():
     if os.path.isdir(args.path):
         args.path = os.path.join(args.path, "*")
 
+    if args.activities_path and os.path.isdir(args.activities_path):
+        args.activities_path = os.path.join(args.activities_path, "activities.csv")
+
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
     from stravavis.plot_calendar import plot_calendar
