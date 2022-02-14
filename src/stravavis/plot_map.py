@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+from rich.progress import track
+
 
 def plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
              alpha=0.3, linewidth=0.3, output_file="map.png"):
@@ -24,7 +26,7 @@ def plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
     n = len(activities)
 
     # Plot activities one by one
-    for i in range(n):
+    for i in track(range(n), "Plotting activities"):
         X = df[df['name'] == activities[i]]['lon']
         Y = df[df['name'] == activities[i]]['lat']
         plt.plot(X, Y, color = 'black', alpha = alpha, linewidth = linewidth)
