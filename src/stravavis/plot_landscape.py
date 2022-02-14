@@ -13,24 +13,23 @@ def plot_landscape(df, output_file = 'landscape.png'):
     
     # Create a list of activity names
     activities = df['name'].unique()
-    n = len(activities)
 
     # Normalize dist
     processed = []
 
-    for i in track(range(n), "Processing tracks"):
-        df_i = df[df['name'] == activities[i]]
+    for activity in track(activities, "Processing tracks"):
+        df_i = df[df['name'] == activity]
         df_i["dist_norm"] = (df_i["dist"] - df_i["dist"].min()) / (df_i["dist"].max() - df_i["dist"].min())
         processed.append(df_i)
 
     df = pd.concat(processed)
 
     # Plot activities one by one
-    for i in track(range(n), "Plotting activities"):
-        X = df[df['name'] == activities[i]]['dist_norm']
-        Y = df[df['name'] == activities[i]]['ele']
-        plt.fill_between(X, Y, color = 'black', alpha = 0.03, linewidth = 0)
-        plt.plot(X, Y, color = 'black', alpha = 0.125, linewidth = 0.25)
+    for activity in track(activities, "Plotting activities"):
+        x = df[df['name'] == activity]['dist_norm']
+        y = df[df['name'] == activity]['ele']
+        plt.fill_between(x, y, color='black', alpha=0.03, linewidth=0)
+        plt.plot(x, y, color='black', alpha=0.125, linewidth=0.25)
 
     # Update plot aesthetics
     plt.axis('off')

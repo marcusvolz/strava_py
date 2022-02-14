@@ -23,13 +23,12 @@ def plot_map(df, lon_min=None, lon_max= None, lat_min=None, lat_max=None,
 
     # Create a list of activity names
     activities = df['name'].unique()
-    n = len(activities)
 
     # Plot activities one by one
-    for i in track(range(n), "Plotting activities"):
-        X = df[df['name'] == activities[i]]['lon']
-        Y = df[df['name'] == activities[i]]['lat']
-        plt.plot(X, Y, color = 'black', alpha = alpha, linewidth = linewidth)
+    for activity in track(activities, "Plotting activities"):
+        x = df[df['name'] == activity]['lon']
+        y = df[df['name'] == activity]['lat']
+        plt.plot(x, y, color='black', alpha=alpha, linewidth=linewidth)
 
     # Update plot aesthetics
     plt.axis('off')
