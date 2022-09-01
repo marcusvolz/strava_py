@@ -3,43 +3,65 @@ Create artistic visualisations with your exercise data (Python version).
 
 This is a port of the [R strava package](https://github.com/marcusvolz/strava) to Python.
 
+## Installation
+
+Install via pip:
+
+```sh
+python3 -m pip install pylast
+```
+
+For development:
+
+```sh
+git clone https://github.com/marcusvolz/strava_py
+cd strava_py
+pip install -e .
+```
+
+Then run from the terminal:
+
+```sh
+stravavis --help
+```
+
 ## Examples
 
 ### Facets
 
 A plot of activities as small multiples. The concept behind this plot was originally inspired by [Sisu](https://twitter.com/madewithsisu).
 
-![facets](https://github.com/marcusvolz/strava_py/blob/main/plots/facets001.png "Facets, showing activity outlines")
+![facets](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/facets001.png "Facets, showing activity outlines")
 
 ### Map
 
 A map of activities viewed in plan.
 
-![map](https://github.com/marcusvolz/strava_py/blob/main/plots/map001.png "A map of activities viewed in plan")
+![map](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/map001.png "A map of activities viewed in plan")
 
 ### Elevations
 
 A plot of activity elevation profiles as small multiples.
 
-![map](https://github.com/marcusvolz/strava_py/blob/main/plots/elevations001.png "A plot of activity elevation profiles as small multiples")
+![map](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/elevations001.png "A plot of activity elevation profiles as small multiples")
 
 ### Landscape
 
 Elevation profiles superimposed.
 
-![map](https://github.com/marcusvolz/strava_py/blob/main/plots/landscape001.png "Elevation profiles superimposed")
+![map](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/landscape001.png "Elevation profiles superimposed")
 
 ### Calendar
 
 Calendar heatmap showing daily activity distance, using the [calmap](https://pythonhosted.org/calmap/) package. Requires "activities.csv" from the bulk Strava export.
 
-![map](https://github.com/marcusvolz/strava_py/blob/main/plots/calendar001.png "Calendar heatmap")
+![map](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/calendar001.png "Calendar heatmap")
 
 ### Dumbbell plot
 
 Activities shown as horizontal lines by time of day and day of year, facetted by year. Requires "activities.csv" from the bulk Strava export.
 
-![map](https://github.com/marcusvolz/strava_py/blob/main/plots/dumbbell001.png "Dumbbell plot")
+![map](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/dumbbell001.png "Dumbbell plot")
 
 ## How to use
 
