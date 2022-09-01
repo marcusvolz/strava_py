@@ -3,6 +3,28 @@ Create artistic visualisations with your exercise data (Python version).
 
 This is a port of the [R strava package](https://github.com/marcusvolz/strava) to Python.
 
+## Installation
+
+Install via pip:
+
+```sh
+python3 -m pip install pylast
+```
+
+For development:
+
+```sh
+git clone https://github.com/marcusvolz/strava_py
+cd strava_py
+pip install -e .
+```
+
+Then run from the terminal:
+
+```sh
+stravavis --help
+```
+
 ## Examples
 
 ### Facets
