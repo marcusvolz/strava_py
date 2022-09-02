@@ -12,10 +12,26 @@ def main():
     parser.add_argument(
         "-o", "--output_prefix", default="strava", help="Prefix for output PNG files"
     )
-    parser.add_argument("--lon_min", default=None, help="Minimum longitude for plot_map (values less than this are removed from the data)")
-    parser.add_argument("--lon_max", default=None, help="Maximum longitude for plot_map (values greater than this are removed from the data)")
-    parser.add_argument("--lat_min", default=None, help="Minimum latitude for plot_map (values less than this are removed from the data)")
-    parser.add_argument("--lat_max", default=None, help="Maximum latitude for plot_map (values greater than this are removed from the data)")
+    parser.add_argument(
+        "--lon_min",
+        type=float,
+        help="Minimum longitude for plot_map (values less than this are removed from the data)",
+    )
+    parser.add_argument(
+        "--lon_max",
+        type=float,
+        help="Maximum longitude for plot_map (values greater than this are removed from the data)",
+    )
+    parser.add_argument(
+        "--lat_min",
+        type=float,
+        help="Minimum latitude for plot_map (values less than this are removed from the data)",
+    )
+    parser.add_argument(
+        "--lat_max",
+        type=float,
+        help="Maximum latitude for plot_map (values greater than this are removed from the data)",
+    )
     parser.add_argument("--alpha", default=0.4, help="Line transparency. 0 = Fully transparent, 1 = No transparency")
     parser.add_argument("--linewidth", default=0.4, help="Line width")
     parser.add_argument("--activities_path", help="Path to activities.csv from Strava bulk export zip")
@@ -62,7 +78,16 @@ def main():
 
     print("Plotting map...")
     outfile = f"{args.output_prefix}-map.png"
-    plot_map(df, output_file=outfile)
+    plot_map(
+        df,
+        args.lon_min,
+        args.lon_max,
+        args.lat_min,
+        args.lat_max,
+        args.alpha,
+        args.linewidth,
+        outfile,
+    )
     print(f"Saved to {outfile}")
 
     print("Plotting elevations...")
