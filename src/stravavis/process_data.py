@@ -18,7 +18,8 @@ def process_file(fpath):
 # Function for processing an individual GPX file
 # Ref: https://pypi.org/project/gpxpy/
 def process_gpx(gpxfile):
-    activity = gpxpy.parse(open(gpxfile))
+    with open(gpxfile, encoding="utf-8") as f:
+        activity = gpxpy.parse(f)
 
     lon = []
     lat = []
