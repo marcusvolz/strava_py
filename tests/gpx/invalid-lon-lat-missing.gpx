@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxdata="http://www.cluetrust.com/XML/GPXDATA/1/0" creator="Wahoo ELEMNT BOLT" version="5.8">
+  <metadata>
+    <link href="https://gotoes.org/strava/Combine_GPX_TCX_FIT_Files.php">
+      <text>GOTOES STRAVA TOOLS</text>
+    </link>
+    <time>2019-08-31T09:02:36Z</time>
+  </metadata>
+  <trk>
+    <type>Other</type>
+    <trkseg>
+      <trkpt>
+        <ele>31.2</ele>
+        <time>2019-08-31T09:02:36Z</time>
+        <extensions>
+          <gpxdata:temp>0</gpxdata:temp>
+        </extensions>
+      </trkpt>
+      <trkpt lon="24.12345" lat="60.12345">
+        <ele>31.2</ele>
+        <time>2019-08-31T09:02:37Z</time>
+        <extensions>
+          <gpxdata:temp>29</gpxdata:temp>
+        </extensions>
+      </trkpt>
+      <trkpt lon="24.12345" lat="60.12345">
+        <ele>31.2</ele>
+        <time>2019-08-31T09:02:38Z</time>
+        <extensions>
+          <gpxdata:temp>29</gpxdata:temp>
+        </extensions>
+      </trkpt>
+      <trkpt lon="24.12345" lat="60.12345">
+        <ele>31.2</ele>
+        <time>2019-08-31T09:02:39Z</time>
+        <extensions>
+          <gpxdata:temp>29</gpxdata:temp>
+        </extensions>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

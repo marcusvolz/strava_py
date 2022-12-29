@@ -19,7 +19,11 @@ def process_file(fpath):
 # Ref: https://pypi.org/project/gpxpy/
 def process_gpx(gpxfile):
     with open(gpxfile, encoding="utf-8") as f:
-        activity = gpxpy.parse(f)
+        try:
+            activity = gpxpy.parse(f)
+        except gpxpy.mod_gpx.GPXException as e:
+            print(f"\nSkipping {gpxfile}: {type(e).__name__}: {e}")
+            return None
 
     lon = []
     lat = []
