@@ -8,7 +8,7 @@ This is a port of the [R strava package](https://github.com/marcusvolz/strava) t
 Install via pip:
 
 ```sh
-python3 -m pip install pylast
+python3 -m pip install stravavis
 ```
 
 For development:
