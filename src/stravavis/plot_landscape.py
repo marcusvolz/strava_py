@@ -28,8 +28,11 @@ def plot_landscape(df, output_file = 'landscape.png'):
     for activity in track(activities, "Plotting activities"):
         x = df[df['name'] == activity]['dist_norm']
         y = df[df['name'] == activity]['ele']
-        plt.fill_between(x, y, color='black', alpha=0.03, linewidth=0)
-        plt.plot(x, y, color='black', alpha=0.125, linewidth=0.25)
+        try:
+            plt.fill_between(x, y, color='black', alpha=0.03, linewidth=0)
+            plt.plot(x, y, color='black', alpha=0.125, linewidth=0.25)
+        except Exception as e:
+            pass
 
     # Update plot aesthetics
     plt.axis('off')

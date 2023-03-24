@@ -21,9 +21,14 @@ def plot_facets(df, output_file = 'plot.png'):
         sharey = False,
         )
 
+    def eplt(x, y, **kws):
+        ax = plt.gca()
+        ax.plot(x, y, **kws)
+        ax.set_aspect('equal', adjustable='box')
+
     # Add activities
     p = p.map(
-        plt.plot, "lon", "lat", color = 'black', linewidth = 4
+        eplt, "lon", "lat", color = 'black', linewidth = 4
         )
 
     # Update plot aesthetics

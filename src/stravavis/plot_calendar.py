@@ -10,7 +10,8 @@ def plot_calendar(activities, year_min=None, year_max=None, max_dist=None,
     # Process data
     activities['Activity Date'] = pd.to_datetime(activities['Activity Date'])
     activities['date'] = activities['Activity Date'].dt.date
-    activities = activities.groupby(['date'])['Distance'].sum()
+    activities['dis'] = activities['Distance'].apply(lambda x: float(x.replace(',', '.')))
+    activities = activities.groupby(['date'])['dis'].sum()
     activities.index = pd.to_datetime(activities.index)
     activities.clip(0, max_dist, inplace=True)
     
