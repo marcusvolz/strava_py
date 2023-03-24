@@ -28,6 +28,8 @@ def plot_landscape(df, output_file = 'landscape.png'):
     for activity in track(activities, "Plotting activities"):
         x = df[df['name'] == activity]['dist_norm']
         y = df[df['name'] == activity]['ele']
+        if y.max() - y.min() > 4000 or y.min() < -1000 or y.max() > 9000:
+            continue
         try:
             plt.fill_between(x, y, color='black', alpha=0.03, linewidth=0)
             plt.plot(x, y, color='black', alpha=0.125, linewidth=0.25)

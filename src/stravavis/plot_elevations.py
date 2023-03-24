@@ -21,9 +21,14 @@ def plot_elevations(df, output_file = 'elevations.png'):
         sharey = True,
         )
 
+    def fplt(x, y, **kwargs):
+        if y.max() - y.min() > 4000 or y.min() < -1000 or y.max() > 9000:
+            y.fill(0)
+        plt.plot(x, y, **kwargs)
+
     # Add activities
     p = p.map(
-        plt.plot, "dist", "ele", color = 'black', linewidth = 4
+        fplt, "dist", "ele", color = 'black', linewidth = 4
         )
 
     # Update plot aesthetics
