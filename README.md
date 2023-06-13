@@ -67,7 +67,7 @@ Activities shown as horizontal lines by time of day and day of year, facetted by
 
 ### Bulk export from Strava
 The process for downloading data is described on the Strava website here: [https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#Bulk], but in essence, do the following:
-                                                                           
+
 1. Log in to [Strava](https://www.strava.com/)
 2. Select "[Settings](https://www.strava.com/settings/profile)" from the main drop-down menu at top right of the screen
 3. Select "[My Account](https://www.strava.com/account)" from the navigation menu to the left of the screen.
