@@ -2,13 +2,18 @@ import calmap
 import matplotlib.pyplot as plt
 import pandas as pd
 
+
+ACTIVITY_FORMAT = "%b %d, %Y, %H:%M:%S %p"
+
 def plot_calendar(activities, year_min=None, year_max=None, max_dist=None,
                   fig_height = 15, fig_width = 9, output_file='calendar.png'):
     # Create a new figure
     plt.figure()
     
     # Process data
-    activities['Activity Date'] = pd.to_datetime(activities['Activity Date'])
+    activities["Activity Date"] = pd.to_datetime(
+        activities["Activity Date"], format=ACTIVITY_FORMAT
+    )
     activities['date'] = activities['Activity Date'].dt.date
     activities = activities.groupby(['date'])['Distance'].sum()
     activities.index = pd.to_datetime(activities.index)

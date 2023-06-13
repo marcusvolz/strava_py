@@ -33,7 +33,7 @@ jobs:
       - name: Test run
         run: |
           stravavis --help
-          stravavis tests/gpx
+          stravavis tests/gpx --activities_path tests/csv
 
       - name: Upload output images
         uses: actions/upload-artifact@v3
