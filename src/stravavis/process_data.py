@@ -102,7 +102,6 @@ def process_fit(fitfile):
 
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
 def process_data(path):
-
     # Process all files (GPX or FIT)
     filenames = glob.glob(path)
 
