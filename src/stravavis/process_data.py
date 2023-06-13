@@ -32,8 +32,8 @@ def process_gpx(gpxfile):
     name = []
     dist = []
 
-    for track in activity.tracks:
-        for segment in track.segments:
+    for activity_track in activity.tracks:
+        for segment in activity_track.segments:
             x0 = activity.tracks[0].segments[0].points[0].longitude
             y0 = activity.tracks[0].segments[0].points[0].latitude
             d0 = 0
