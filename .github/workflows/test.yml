@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
         os: [windows-latest, macos-latest, ubuntu-latest]
 
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Test run
         run: |
           stravavis --help
-          stravavis tests/gpx
+          stravavis tests/gpx --activities_path tests/csv
 
       - name: Upload output images
         uses: actions/upload-artifact@v3
