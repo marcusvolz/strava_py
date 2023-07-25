@@ -1,12 +1,12 @@
 [build-system]
-build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
 requires = [
-  "setuptools>=61.2",
+  "hatch-vcs",
+  "hatchling",
 ]
 
 [project]
 name = "stravavis"
-version = "0.1.0"
 description = "Create artistic visualisations with your exercise data"
 readme = "README.md"
 keywords = [
@@ -33,6 +33,9 @@ classifiers = [
   "Topic :: Multimedia :: Graphics",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
+dynamic = [
+  "version",
+]
 dependencies = [
   "calmap",
   "fit2gpx",
@@ -49,15 +52,11 @@ Source = "https://github.com/marcusvolz/strava_py"
 [project.scripts]
 stravavis = "stravavis.cli:main"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-zip-safe = true
-license-files = ["LICENSE"]
-include-package-data = false
+[tool.hatch]
+version.source = "vcs"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-namespaces = false
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
 
 [tool.isort]
 profile = "black"

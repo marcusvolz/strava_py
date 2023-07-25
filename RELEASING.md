@@ -2,8 +2,6 @@
 
 - [ ] Get `main` to the appropriate code release state.
 
-- [ ] Update `version` in `setup.cfg` and commit and push.
-
 * [ ] Start from a freshly cloned repo:
 
 ```bash
