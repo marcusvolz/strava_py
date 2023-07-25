@@ -1,2 +1,63 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools>=61.2",
+]
+
+[project]
+name = "stravavis"
+version = "0.1.0"
+description = "Create artistic visualisations with your exercise data"
+readme = "README.md"
+keywords = [
+  "artistic",
+  "artistic visualisations",
+  "exercise",
+  "exercise data",
+  "strava",
+  "visualisation",
+]
+license = {text = "MIT"}
+maintainers = [{name = "Hugo van Kemenade"}]
+authors = [{name = "Marcus Volz"}]
+requires-python = ">=3.8"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Artistic Software",
+  "Topic :: Multimedia :: Graphics",
+  "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+  "calmap",
+  "fit2gpx",
+  "gpxpy",
+  "matplotlib",
+  "pandas<2", # Pending https://github.com/MarvinT/calmap/pull/14
+  "plotnine",
+  "rich",
+  "seaborn",
+]
+[project.urls]
+Homepage = "https://github.com/marcusvolz/strava_py"
+Source = "https://github.com/marcusvolz/strava_py"
+[project.scripts]
+stravavis = "stravavis.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+zip-safe = true
+license-files = ["LICENSE"]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
 [tool.isort]
 profile = "black"
