@@ -1,2 +1,62 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+  "hatch-vcs",
+  "hatchling",
+]
+
+[project]
+name = "stravavis"
+description = "Create artistic visualisations with your exercise data"
+readme = "README.md"
+keywords = [
+  "artistic",
+  "artistic visualisations",
+  "exercise",
+  "exercise data",
+  "strava",
+  "visualisation",
+]
+license = {text = "MIT"}
+maintainers = [{name = "Hugo van Kemenade"}]
+authors = [{name = "Marcus Volz"}]
+requires-python = ">=3.8"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Artistic Software",
+  "Topic :: Multimedia :: Graphics",
+  "Topic :: Scientific/Engineering :: Visualization",
+]
+dynamic = [
+  "version",
+]
+dependencies = [
+  "calmap",
+  "fit2gpx",
+  "gpxpy",
+  "matplotlib",
+  "pandas<2", # Pending https://github.com/MarvinT/calmap/pull/14
+  "plotnine",
+  "rich",
+  "seaborn",
+]
+[project.urls]
+Homepage = "https://github.com/marcusvolz/strava_py"
+Source = "https://github.com/marcusvolz/strava_py"
+[project.scripts]
+stravavis = "stravavis.cli:main"
+
+[tool.hatch]
+version.source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
 [tool.isort]
 profile = "black"
