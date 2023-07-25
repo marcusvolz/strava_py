@@ -15,35 +15,57 @@ def main():
     parser.add_argument(
         "--lon_min",
         type=float,
-        help="Minimum longitude for plot_map (values less than this are removed from the data)",
+        help="Minimum longitude for plot_map "
+        "(values less than this are removed from the data)",
     )
     parser.add_argument(
         "--lon_max",
         type=float,
-        help="Maximum longitude for plot_map (values greater than this are removed from the data)",
+        help="Maximum longitude for plot_map "
+        "(values greater than this are removed from the data)",
     )
     parser.add_argument(
         "--lat_min",
         type=float,
-        help="Minimum latitude for plot_map (values less than this are removed from the data)",
+        help="Minimum latitude for plot_map "
+        "(values less than this are removed from the data)",
     )
     parser.add_argument(
         "--lat_max",
         type=float,
-        help="Maximum latitude for plot_map (values greater than this are removed from the data)",
+        help="Maximum latitude for plot_map "
+        "(values greater than this are removed from the data)",
     )
     parser.add_argument(
         "--bbox", help="Shortcut for comma-separated LON_MIN,LAT_MIN,LON_MAX,LAT_MAX"
     )
-    parser.add_argument("--alpha", default=0.4, help="Line transparency. 0 = Fully transparent, 1 = No transparency")
+    parser.add_argument(
+        "--alpha",
+        default=0.4,
+        help="Line transparency. 0 = Fully transparent, 1 = No transparency",
+    )
     parser.add_argument("--linewidth", default=0.4, help="Line width")
-    parser.add_argument("--activities_path", help="Path to activities.csv from Strava bulk export zip")
-    parser.add_argument("--year_min", help="The minimum year to use for the calendar heatmap.")
-    parser.add_argument("--year_max", help="The maximum year to use for the calendar heatmap.")
-    parser.add_argument("--max_dist", help="Maximum daily distance for the calendar heatmap; values above this will be capped.")
+    parser.add_argument(
+        "--activities_path", help="Path to activities.csv from Strava bulk export zip"
+    )
+    parser.add_argument(
+        "--year_min", help="The minimum year to use for the calendar heatmap."
+    )
+    parser.add_argument(
+        "--year_max", help="The maximum year to use for the calendar heatmap."
+    )
+    parser.add_argument(
+        "--max_dist",
+        help="Maximum daily distance for the calendar heatmap; "
+        "values above this will be capped.",
+    )
     parser.add_argument("--fig_height", help="Figure height for the calendar heatmap.")
     parser.add_argument("--fig_width", help="Figure width for the calendar heatmap.")
-    parser.add_argument("--local_timezone", help="Timezone for determining local times for activities. See pytz.all_timezones for a list of all timezones.")
+    parser.add_argument(
+        "--local_timezone",
+        help="Timezone for determining local times for activities. "
+        "See pytz.all_timezones for a list of all timezones.",
+    )
     args = parser.parse_args()
 
     # Expand "~" or "~user"
@@ -114,7 +136,7 @@ def main():
         outfile = f"{args.output_prefix}-calendar.png"
         plot_calendar(activities, output_file=outfile)
         print(f"Saved to {outfile}")
-    
+
         print("Plotting dumbbell...")
         outfile = f"{args.output_prefix}-dumbbell.png"
         plot_dumbbell(activities, output_file=outfile)

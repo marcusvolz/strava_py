@@ -32,8 +32,8 @@ def process_gpx(gpxfile):
     name = []
     dist = []
 
-    for track in activity.tracks:
-        for segment in track.segments:
+    for activity_track in activity.tracks:
+        for segment in activity_track.segments:
             x0 = activity.tracks[0].segments[0].points[0].longitude
             y0 = activity.tracks[0].segments[0].points[0].latitude
             d0 = 0
@@ -102,7 +102,6 @@ def process_fit(fitfile):
 
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
 def process_data(path):
-
     # Process all files (GPX or FIT)
     filenames = glob.glob(path)
 
