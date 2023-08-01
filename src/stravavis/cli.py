@@ -85,14 +85,14 @@ def main():
 
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
-    from stravavis.plot_calendar import plot_calendar
-    from stravavis.plot_dumbbell import plot_dumbbell
-    from stravavis.plot_elevations import plot_elevations
-    from stravavis.plot_facets import plot_facets
-    from stravavis.plot_landscape import plot_landscape
-    from stravavis.plot_map import plot_map
-    from stravavis.process_activities import process_activities
-    from stravavis.process_data import process_data
+    from .plot_calendar import plot_calendar
+    from .plot_dumbbell import plot_dumbbell
+    from .plot_elevations import plot_elevations
+    from .plot_facets import plot_facets
+    from .plot_landscape import plot_landscape
+    from .plot_map import plot_map
+    from .process_activities import process_activities
+    from .process_data import process_data
 
     print("Processing data...")
     df = process_data(args.path)

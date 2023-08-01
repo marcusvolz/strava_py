@@ -37,11 +37,11 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "calmap",
+  "calmap>=0.0.11",
   "fit2gpx",
   "gpxpy",
   "matplotlib",
-  "pandas<2", # Pending https://github.com/MarvinT/calmap/pull/14
+  "pandas",
   "plotnine",
   "rich",
   "seaborn",
