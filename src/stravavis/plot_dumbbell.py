@@ -43,7 +43,7 @@ def plot_dumbbell(
         activities["duration"][i] = pd.Timedelta(
             activities["Elapsed Time"][i], unit="s"
         )
-    activities["end"] = activities["start"] + activities["duration"]
+    activities["end"] = pd.to_datetime(activities["start"] + activities["duration"])
 
     # Remove activities outside the year_min -> year_max window
     activities["year"] = activities["Activity Date"].dt.year
