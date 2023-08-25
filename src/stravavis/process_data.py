@@ -13,6 +13,8 @@ def process_file(fpath):
         return process_gpx(fpath)
     elif fpath.endswith(".fit"):
         return process_fit(fpath)
+    elif fpath.endswith(".db"):
+        return process_sqlite(fpath)
 
 
 # Function for processing an individual GPX file
@@ -98,6 +100,68 @@ def process_fit(fitfile):
     )
 
     return df
+
+# process a cyclemeter database file.
+def process_sqlite(path):
+    '''Process a cyclemeter db file
+
+    sqlite database, using the following fields of tables:
+
+    coordinates (runid, sequenceid, timeOffset, latitude, longitude, distanceDelta)
+    altitude (runid, sequenceid, timeOffset, distanceDelta, altitude)
+    run (runid, startTime)
+
+
+    timeOffset is an offset from the startTime in the run
+    distanceDelta is the distance from the previous reading
+
+    coordinates and altitude have the same runid, but the sequence ids
+    are different, as are the time of capture. There are ~2x as many
+    coordinates as altitude readings.
+    '''
+
+    import sqlite3
+    import numpy as np
+
+    with sqlite3.connect(path) as con:
+        coords = pd.read_sql_query('''
+            select
+              runID,
+              startTime,
+              timeOffset,
+              latitude as lat,
+              longitude as lon,
+              sum(distanceDelta) over(partition by runid order by sequenceId) as dist
+            from coordinate
+            inner join run using (runid)
+        ''', con)
+        altitudes = pd.read_sql_query('''
+            select
+              runID,
+              timeOffset,
+              altitude as ele
+            from altitude
+        ''', con)
+
+    coords['ele'] = np.NaN
+
+    ## Interpolating the elevation from the sparser altitude table to the denser coords table.
+
+    # Need to do each 'run' (activity) separately, so that the interpolations don't leak between the activities.
+    for runID in pd.unique(coords['runID']):
+        _c = coords[['timeOffset', 'ele']][(coords['runID'] == runID)]
+        _a = altitudes[['timeOffset', 'ele']][(altitudes['runID'] == runID)]
+        # keys enable a multiindex, keeping track of which items come from which source
+        both = pd.concat([_c, _a], keys=['c', 'a']).sort_values(['timeOffset']).interpolate(limit_direction='both')
+        # .xs pulls out the coords from the multiindex
+        coords.loc[coords['runID'] == runID, ['ele']] = both.xs('c')['ele']
+
+    coords['time'] = pd.to_datetime(coords['startTime']) + pd.to_timedelta(coords['timeOffset'], unit='S')
+
+    coords = coords.rename(columns={'runID': 'name'})
+
+    return coords[['lon', 'lat', 'ele', 'time', 'name', 'dist']]
+
 
 
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
