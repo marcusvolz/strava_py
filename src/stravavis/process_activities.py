@@ -19,16 +19,11 @@ def process_sqlite_activities(path):
             select
               runID,
               startTime as "Activity Date",
-              startTimeZone,
               distance as "Distance",
               runTime as "Elapsed Time"
             from run
         ''', con)
 
-    activities['Activity Date'] = pd.to_datetime(activities['Activity Date'])
-    for (ix, row) in activities.iterrows():
-        activities.loc[ix, ['Activity Date']] = row['Activity Date'].tz_localize(row['startTimeZone'])
-
-    activities['Activity Date'] = pd.to_datetime(activities['Activity Date'], utc=True).dt.strftime(date_format=ACTIVITY_FORMAT)
+    activities['Activity Date'] = pd.to_datetime(activities['Activity Date']).dt.strftime(date_format=ACTIVITY_FORMAT)
 
     return activities
