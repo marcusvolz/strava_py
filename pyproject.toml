@@ -29,6 +29,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Topic :: Artistic Software",
   "Topic :: Multimedia :: Graphics",
   "Topic :: Scientific/Engineering :: Visualization",
@@ -45,6 +46,7 @@ dependencies = [
   "plotnine",
   "rich",
   "seaborn",
+  'setuptools; python_version >= "3.12"', # TODO Remove when https://github.com/MarvinT/calmap/issues/22 is fixed
 ]
 [project.urls]
 Homepage = "https://github.com/marcusvolz/strava_py"
