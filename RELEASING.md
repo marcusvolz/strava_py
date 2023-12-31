@@ -1,64 +1,31 @@
 # Release Checklist
 
 - [ ] Get `main` to the appropriate code release state.
+      [GitHub Actions](https://github.com/marcusvolz/strava_py/actions) should be
+      running cleanly for all merges to `main`.
+      [![GitHub Actions status](https://github.com/marcusvolz/strava_py/workflows/Test/badge.svg)](https://github.com/marcusvolz/strava_py/actions)
 
-* [ ] Start from a freshly cloned repo:
+- [ ] Go to the [Releases page](https://github.com/marcusvolz/strava_py/releases) and
 
-```bash
-cd /tmp
-rm -rf strava_py
-git clone https://github.com/marcusvolz/strava_py
-cd strava_py
-```
+  - [ ] Click "Draft a new release"
 
-- [ ] (Optional) Create a distribution and release on **TestPyPI**:
+  - [ ] Click "Choose a tag"
 
-```bash
-python -m pip install -U pip build keyring twine
-rm -rf build dist
-python -m build
-twine check --strict dist/* && twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-```
+  - [ ] Type the next `vX.Y.Z` version and select "**Create new tag: vX.Y.Z** on
+        publish"
 
-- [ ] (Optional) Check **test** installation:
+  - [ ] Leave the "Release title" blank (it will be autofilled)
 
-```bash
-python -m pip uninstall -y stravavis
-python -m pip install -U -i https://test.pypi.org/simple/ stravavis
-stravavis --help
-```
+  - [ ] Click "Generate release notes" and amend as required
 
-- [ ] Tag with the version number:
+  - [ ] Click "Publish release"
 
-```bash
-git tag -a v0.0.1 -m "Release 0.0.1"
-```
-
-- [ ] Create a distribution and release on **live PyPI**:
-
-```bash
-python -m pip install -U pip build keyring twine
-rm -rf build dist
-python -m build
-twine check --strict dist/* && twine upload -r pypi dist/*
-```
+- [ ] Check the tagged
+      [GitHub Actions build](https://github.com/marcusvolz/strava_py/actions/workflows/deploy.yml)
+      has deployed to [PyPI](https://pypi.org/project/stravavis/#history)
 
 - [ ] Check installation:
 
 ```bash
-python -m pip uninstall -y stravavis
-python -m pip install -U stravavis
-stravavis --help
+pip3 uninstall -y stravavis && pip3 install -U stravavis && stravavis --help
 ```
-
-- [ ] Push tag:
-
-```bash
-git push --tags
-```
-
-- [ ] Create a new release: https://github.com/marcusvolz/strava_py/releases/new
-
-- [ ] Click "Choose a tag" and select newest.
-
-- [ ] Click "Auto-generate release notes", amend as required and "Publish release".
