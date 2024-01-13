@@ -156,7 +156,7 @@ def main():
             args.max_dist,
             fig_height,
             fig_width,
-            output_file=outfile,
+            outfile,
         )
         print(f"Saved to {outfile}")
 
@@ -171,7 +171,7 @@ def main():
             args.local_timezone,
             fig_height,
             fig_width,
-            output_file=outfile,
+            outfile,
         )
         print(f"Saved to {outfile}")
 
