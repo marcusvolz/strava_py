@@ -49,18 +49,31 @@ def main():
         "--activities_path", help="Path to activities.csv from Strava bulk export zip"
     )
     parser.add_argument(
-        "--year_min", help="The minimum year to use for the calendar heatmap."
+        "--year_min",
+        type=int,
+        help="The minimum year to use for the calendar heatmap and dumbbell.",
     )
     parser.add_argument(
-        "--year_max", help="The maximum year to use for the calendar heatmap."
+        "--year_max",
+        type=int,
+        help="The maximum year to use for the calendar heatmap and dumbbell.",
     )
     parser.add_argument(
         "--max_dist",
+        type=float,
         help="Maximum daily distance for the calendar heatmap; "
         "values above this will be capped.",
     )
-    parser.add_argument("--fig_height", help="Figure height for the calendar heatmap.")
-    parser.add_argument("--fig_width", help="Figure width for the calendar heatmap.")
+    parser.add_argument(
+        "--fig_height",
+        type=float,
+        help="Figure height for the calendar heatmap and dumbbell.",
+    )
+    parser.add_argument(
+        "--fig_width",
+        type=float,
+        help="Figure width for the calendar heatmap and dumbbell.",
+    )
     parser.add_argument(
         "--local_timezone",
         help="Timezone for determining local times for activities. "
@@ -134,12 +147,32 @@ def main():
     if activities is not None:
         print("Plotting calendar...")
         outfile = f"{args.output_prefix}-calendar.png"
-        plot_calendar(activities, output_file=outfile)
+        fig_height = args.fig_height or 15
+        fig_width = args.fig_width or 9
+        plot_calendar(
+            activities,
+            args.year_min,
+            args.year_max,
+            args.max_dist,
+            fig_height,
+            fig_width,
+            output_file=outfile,
+        )
         print(f"Saved to {outfile}")
 
         print("Plotting dumbbell...")
         outfile = f"{args.output_prefix}-dumbbell.png"
-        plot_dumbbell(activities, output_file=outfile)
+        fig_height = args.fig_height or 34
+        fig_width = args.fig_width or 34
+        plot_dumbbell(
+            activities,
+            args.year_min,
+            args.year_max,
+            args.local_timezone,
+            fig_height,
+            fig_width,
+            output_file=outfile,
+        )
         print(f"Saved to {outfile}")
 
 
