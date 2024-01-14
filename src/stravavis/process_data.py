@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import glob
+import hashlib
 import math
+import tempfile
 from multiprocessing import Pool
+from pathlib import Path
 
 import fit2gpx
 import gpxpy
@@ -9,7 +13,7 @@ import pandas as pd
 from rich.progress import track
 
 
-def process_file(fpath):
+def process_file(fpath: str) -> pd.DataFrame | None:
     if fpath.endswith(".gpx"):
         return process_gpx(fpath)
     elif fpath.endswith(".fit"):
@@ -18,7 +22,7 @@ def process_file(fpath):
 
 # Function for processing an individual GPX file
 # Ref: https://pypi.org/project/gpxpy/
-def process_gpx(gpxfile):
+def process_gpx(gpxfile: str) -> pd.DataFrame | None:
     with open(gpxfile, encoding="utf-8") as f:
         try:
             activity = gpxpy.parse(f)
@@ -64,7 +68,7 @@ def process_gpx(gpxfile):
 
 # Function for processing an individual FIT file
 # Ref: https://github.com/dodo-saba/fit2gpx
-def process_fit(fitfile):
+def process_fit(fitfile: str) -> pd.DataFrame:
     conv = fit2gpx.Converter()
     df_lap, df = conv.fit_to_dataframes(fname=fitfile)
 
@@ -101,9 +105,33 @@ def process_fit(fitfile):
     return df
 
 
+def load_cache(filenames: list[str]) -> tuple[Path, pd.DataFrame | None]:
+    # Create a cache key from the filenames
+    key = hashlib.md5("".join(filenames).encode("utf-8")).hexdigest()
+
+    # Create a cache directory
+    dir_name = Path(tempfile.gettempdir()) / "stravavis"
+    dir_name.mkdir(parents=True, exist_ok=True)
+    cache_filename = dir_name / f"cached_activities_{key}.pkl"
+    print(f"Cache filename: {cache_filename}")
+
+    # Load cache if it exists
+    try:
+        df = pd.read_pickle(cache_filename)
+        print("Loaded cached activities")
+        return cache_filename, df
+    except FileNotFoundError:
+        print("Cache not found")
+        return cache_filename, None
+
+
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
 def process_data(filenames: list[str]) -> pd.DataFrame:
     # Process all files (GPX or FIT)
+    cache_filename, df = load_cache(filenames)
+    if df is not None:
+        return df
+
     with Pool() as pool:
         try:
             it = pool.imap_unordered(process_file, filenames)
@@ -116,5 +144,8 @@ def process_data(filenames: list[str]) -> pd.DataFrame:
     df = pd.concat(processed)
 
     df["time"] = pd.to_datetime(df["time"], utc=True)
+
+    # Save cache
+    df.to_pickle(cache_filename)
 
     return df

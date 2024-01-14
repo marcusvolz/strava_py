@@ -89,7 +89,7 @@ def main():
     if os.path.isdir(args.path):
         args.path = os.path.join(args.path, "*")
 
-    filenames = glob.glob(args.path)
+    filenames = sorted(glob.glob(args.path))
     if not filenames:
         sys.exit(f"No files found matching {args.path}")
 
