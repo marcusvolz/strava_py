@@ -1,5 +1,7 @@
 import argparse
+import glob
 import os.path
+import sys
 
 
 def main():
@@ -87,6 +89,10 @@ def main():
     if os.path.isdir(args.path):
         args.path = os.path.join(args.path, "*")
 
+    filenames = glob.glob(args.path)
+    if not filenames:
+        sys.exit(f"No files found matching {args.path}")
+
     if args.bbox:
         # Convert comma-separated string into floats
         args.lon_min, args.lat_min, args.lon_max, args.lat_max = (
@@ -108,7 +114,7 @@ def main():
     from .process_data import process_data
 
     print("Processing data...")
-    df = process_data(args.path)
+    df = process_data(filenames)
 
     activities = None
     if args.activities_path:
