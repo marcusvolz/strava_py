@@ -1,4 +1,5 @@
-import glob
+from __future__ import annotations
+
 import math
 from multiprocessing import Pool
 
@@ -101,10 +102,8 @@ def process_fit(fitfile):
 
 
 # Function for processing (unzipped) GPX and FIT files in a directory (path)
-def process_data(path):
+def process_data(filenames: list[str]) -> pd.DataFrame:
     # Process all files (GPX or FIT)
-    filenames = glob.glob(path)
-
     with Pool() as pool:
         try:
             it = pool.imap_unordered(process_file, filenames)
