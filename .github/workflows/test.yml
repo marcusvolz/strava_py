@@ -34,7 +34,7 @@ jobs:
           tox -e py
 
       - name: Upload output images
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: images
+          name: images-${{ matrix.os }}-${{ matrix.python-version }}
           path: "*.png"
