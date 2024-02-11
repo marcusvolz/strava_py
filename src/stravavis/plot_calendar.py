@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import calmap
 import matplotlib.pyplot as plt
 import pandas as pd

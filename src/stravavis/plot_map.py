@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from math import log, pi, tan
 
 import matplotlib.pyplot as plt
