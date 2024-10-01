@@ -117,6 +117,8 @@ def main():
 
     print("Processing data...")
     df = process_data(filenames)
+    if df.empty:
+        sys.exit("No data to plot")
 
     activities = None
     if args.activities_path:
