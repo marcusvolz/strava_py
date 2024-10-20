@@ -96,10 +96,19 @@ def main():
         sys.exit(f"No files found matching {args.path}")
 
     if args.bbox:
-        # Convert comma-separated string into floats
-        args.lon_min, args.lat_min, args.lon_max, args.lat_max = (
-            float(x) for x in args.bbox.split(",")
-        )
+        try:
+            bbox_values = args.bbox.split(",")
+            if len(bbox_values) == 1:
+                with open(args.bbox) as f:
+                    bbox_values = f.readline().split(",")
+            args.lon_min, args.lat_min, args.lon_max, args.lat_max = map(
+                float, bbox_values
+            )
+        except ValueError:
+            sys.exit(
+                f"Bounding box '{args.bbox}' must be four comma-separated coordinates "
+                "or a file containing them"
+            )
 
     if args.activities_path and os.path.isdir(args.activities_path):
         args.activities_path = os.path.join(args.activities_path, "activities.csv")

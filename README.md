@@ -27,6 +27,36 @@ Then run from the terminal:
 stravavis --help
 ```
 
+## How to use
+
+If your activity data is in a folder called `activities`, run the following command:
+
+```sh
+stravavis activities
+```
+
+By default, this will create output images prefixed `strava-`.
+
+If you have an `activities.csv` file:
+
+```sh
+stravavis activities --activities_path activities.csv
+```
+
+To only map activities contained within a
+[bounding box](https://boundingbox.klokantech.com/):
+
+```sh
+stravavis activities --bbox 24.782802,59.922486,25.254511,60.29785`
+```
+
+Or as a shortcut, save bounding-box coordinates to a file:
+
+```sh
+echo 24.782802,59.922486,25.254511,60.29785 > helsinki.bbox
+stravavis activities --bbox helsinki.bbox
+```
+
 ## Examples
 
 ### Facets
