@@ -17,15 +17,14 @@ keywords = [
   "strava",
   "visualisation",
 ]
-license = {text = "MIT"}
-maintainers = [{name = "Hugo van Kemenade"}]
-authors = [{name = "Marcus Volz"}]
-requires-python = ">=3.8"
+license = { text = "MIT" }
+maintainers = [ { name = "Hugo van Kemenade" } ]
+authors = [ { name = "Marcus Volz" } ]
+requires-python = ">=3.9"
 classifiers = [
   "Development Status :: 3 - Alpha",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -34,9 +33,7 @@ classifiers = [
   "Topic :: Multimedia :: Graphics",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
-dynamic = [
-  "version",
-]
+dynamic = [ "version" ]
 dependencies = [
   "calmap>=0.0.11",
   "fit2gpx",
@@ -46,13 +43,11 @@ dependencies = [
   "plotnine",
   "rich",
   "seaborn",
-  'setuptools; python_version >= "3.12"', # TODO Remove when https://github.com/MarvinT/calmap/issues/22 is fixed
+  "setuptools; python_version>='3.12'", # TODO Remove when https://github.com/MarvinT/calmap/issues/22 is fixed
 ]
-[project.urls]
-Homepage = "https://github.com/marcusvolz/strava_py"
-Source = "https://github.com/marcusvolz/strava_py"
-[project.scripts]
-stravavis = "stravavis.cli:main"
+urls.Homepage = "https://github.com/marcusvolz/strava_py"
+urls.Source = "https://github.com/marcusvolz/strava_py"
+scripts.stravavis = "stravavis.cli:main"
 
 [tool.hatch]
 version.source = "vcs"
@@ -63,28 +58,28 @@ local_scheme = "no-local-version"
 [tool.ruff]
 fix = true
 
-[tool.ruff.lint]
-select = [
-  "C4", # flake8-comprehensions
-  "E", # pycodestyle errors
-  "EM", # flake8-errmsg
-  "F", # pyflakes errors
-  "I", # isort
-  "ISC", # flake8-implicit-str-concat
-  "LOG", # flake8-logging
-  "PGH", # pygrep-hooks
+lint.select = [
+  "C4",     # flake8-comprehensions
+  "E",      # pycodestyle errors
+  "EM",     # flake8-errmsg
+  "F",      # pyflakes errors
+  "I",      # isort
+  "ICN",    # flake8-import-conventions
+  "ISC",    # flake8-implicit-str-concat
+  "LOG",    # flake8-logging
+  "PGH",    # pygrep-hooks
+  "RUF022", # unsorted-dunder-all
   "RUF100", # unused noqa (yesqa)
-  "UP", # pyupgrade
-  "W", # pycodestyle warnings
-  "YTT", # flake8-2020
+  "UP",     # pyupgrade
+  "W",      # pycodestyle warnings
+  "YTT",    # flake8-2020
 ]
-extend-ignore = [
-  "E203", # Whitespace before ':'
-  "E221", # Multiple spaces before operator
-  "E226", # Missing whitespace around arithmetic operator
-  "E241", # Multiple spaces after ','
+lint.ignore = [
+  "E203",  # Whitespace before ':'
+  "E221",  # Multiple spaces before operator
+  "E226",  # Missing whitespace around arithmetic operator
+  "E241",  # Multiple spaces after ','
+  "UP038", # Makes code slower and more verbose
 ]
-
-[tool.ruff.lint.isort]
-known-first-party = ["stravavis"]
-required-imports = ["from __future__ import annotations"]
+lint.isort.known-first-party = [ "stravavis" ]
+lint.isort.required-imports = [ "from __future__ import annotations" ]
