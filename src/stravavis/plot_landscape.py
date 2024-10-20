@@ -19,8 +19,8 @@ def plot_landscape(df, output_file="landscape.png"):
     processed = []
 
     for activity in track(activities, "Processing tracks"):
-        df_i = df[df["name"] == activity]
-        df_i["dist_norm"] = (df_i["dist"] - df_i["dist"].min()) / (
+        df_i = df[df["name"] == activity].copy()
+        df_i.loc[:, "dist_norm"] = (df_i["dist"] - df_i["dist"].min()) / (
             df_i["dist"].max() - df_i["dist"].min()
         )
         processed.append(df_i)
