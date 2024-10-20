@@ -38,8 +38,11 @@ def process_gpx(gpxfile: str) -> pd.DataFrame | None:
 
     for activity_track in activity.tracks:
         for segment in activity_track.segments:
-            x0 = activity.tracks[0].segments[0].points[0].longitude
-            y0 = activity.tracks[0].segments[0].points[0].latitude
+            if not segment.points:
+                continue
+
+            x0 = segment.points[0].longitude
+            y0 = segment.points[0].latitude
             d0 = 0
             for point in segment.points:
                 x = point.longitude
