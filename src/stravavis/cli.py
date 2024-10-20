@@ -5,6 +5,16 @@ import glob
 import os.path
 import sys
 
+VISUALISATIONS = {
+    "all",
+    "calendar",
+    "dumbbell",
+    "elevations",
+    "facets",
+    "landscape",
+    "map",
+}
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -12,6 +22,13 @@ def main():
     )
     parser.add_argument(
         "path", help="Input path specification to folder with GPX and / or FIT files"
+    )
+    parser.add_argument(
+        "--vis",
+        default="all",
+        choices=VISUALISATIONS,
+        nargs="+",
+        help="Which visualisations to generate",
     )
     parser.add_argument(
         "-o", "--output_prefix", default="strava", help="Prefix for output PNG files"
@@ -85,6 +102,9 @@ def main():
     )
     args = parser.parse_args()
 
+    if "all" in args.vis:
+        args.vis = VISUALISATIONS
+
     # Expand "~" or "~user"
     args.path = os.path.expanduser(args.path)
 
@@ -106,13 +126,6 @@ def main():
 
     # Normally imports go at the top, but scientific libraries can be slow to import
     # so let's validate arguments first
-    from .plot_calendar import plot_calendar
-    from .plot_dumbbell import plot_dumbbell
-    from .plot_elevations import plot_elevations
-    from .plot_facets import plot_facets
-    from .plot_landscape import plot_landscape
-    from .plot_map import plot_map
-    from .process_activities import process_activities
     from .process_data import process_data
 
     print("Processing data...")
@@ -122,68 +135,88 @@ def main():
 
     activities = None
     if args.activities_path:
+        from .process_activities import process_activities
+
         print("Processing activities...")
         activities = process_activities(args.activities_path)
 
-    print("Plotting facets...")
-    outfile = f"{args.output_prefix}-facets.png"
-    plot_facets(df, output_file=outfile)
-    print(f"Saved to {outfile}")
+    if "facets" in args.vis:
+        from .plot_facets import plot_facets
 
-    print("Plotting map...")
-    outfile = f"{args.output_prefix}-map.png"
-    plot_map(
-        df,
-        args.lon_min,
-        args.lon_max,
-        args.lat_min,
-        args.lat_max,
-        args.alpha,
-        args.linewidth,
-        outfile,
-    )
-    print(f"Saved to {outfile}")
+        print("Plotting facets...")
+        outfile = f"{args.output_prefix}-facets.png"
+        plot_facets(df, output_file=outfile)
+        print(f"Saved to {outfile}")
 
-    print("Plotting elevations...")
-    outfile = f"{args.output_prefix}-elevations.png"
-    plot_elevations(df, output_file=outfile)
-    print(f"Saved to {outfile}")
+    if "map" in args.vis:
+        from .plot_map import plot_map
 
-    print("Plotting landscape...")
-    outfile = f"{args.output_prefix}-landscape.png"
-    plot_landscape(df, output_file=outfile)
-    print(f"Saved to {outfile}")
+        print("Plotting map...")
+        outfile = f"{args.output_prefix}-map.png"
+        plot_map(
+            df,
+            args.lon_min,
+            args.lon_max,
+            args.lat_min,
+            args.lat_max,
+            args.alpha,
+            args.linewidth,
+            outfile,
+        )
+        print(f"Saved to {outfile}")
+
+    if "elevations" in args.vis:
+        from .plot_elevations import plot_elevations
+
+        print("Plotting elevations...")
+        outfile = f"{args.output_prefix}-elevations.png"
+        plot_elevations(df, output_file=outfile)
+        print(f"Saved to {outfile}")
+
+    if "landscape" in args.vis:
+        from .plot_landscape import plot_landscape
+
+        print("Plotting landscape...")
+        outfile = f"{args.output_prefix}-landscape.png"
+        plot_landscape(df, output_file=outfile)
+        print(f"Saved to {outfile}")
 
     if activities is not None:
-        print("Plotting calendar...")
-        outfile = f"{args.output_prefix}-calendar.png"
-        fig_height = args.fig_height or 15
-        fig_width = args.fig_width or 9
-        plot_calendar(
-            activities,
-            args.year_min,
-            args.year_max,
-            args.max_dist,
-            fig_height,
-            fig_width,
-            outfile,
-        )
-        print(f"Saved to {outfile}")
+        if "calendar" in args.vis:
+            from .plot_calendar import plot_calendar
 
-        print("Plotting dumbbell...")
-        outfile = f"{args.output_prefix}-dumbbell.png"
-        fig_height = args.fig_height or 34
-        fig_width = args.fig_width or 34
-        plot_dumbbell(
-            activities,
-            args.year_min,
-            args.year_max,
-            args.local_timezone,
-            fig_height,
-            fig_width,
-            outfile,
-        )
-        print(f"Saved to {outfile}")
+            print("Plotting calendar...")
+            outfile = f"{args.output_prefix}-calendar.png"
+            fig_height = args.fig_height or 15
+            fig_width = args.fig_width or 9
+            plot_calendar(
+                activities,
+                args.year_min,
+                args.year_max,
+                args.max_dist,
+                fig_height,
+                fig_width,
+                outfile,
+            )
+            print(f"Saved to {outfile}")
+
+        if "dumbbell" in args.vis:
+            from .plot_dumbbell import plot_dumbbell
+
+            print("Plotting dumbbell...")
+            outfile = f"{args.output_prefix}-dumbbell.png"
+            fig_height = args.fig_height or 34
+            fig_width = args.fig_width or 34
+            plot_dumbbell(
+                activities,
+                args.year_min,
+                args.year_max,
+                args.local_timezone,
+                fig_height,
+                fig_width,
+                outfile,
+            )
+            print(f"Saved to {outfile}")
 
 
 if __name__ == "__main__":
