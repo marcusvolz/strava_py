@@ -112,7 +112,7 @@ def main():
     from .plot_facets import plot_facets
     from .plot_landscape import plot_landscape
     from .plot_map import plot_map
-    from .process_activities import process_activities
+    from .process_activities import process_activities, process_sqlite_activities
     from .process_data import process_data
 
     print("Processing data...")
@@ -153,6 +153,10 @@ def main():
     outfile = f"{args.output_prefix}-landscape.png"
     plot_landscape(df, output_file=outfile)
     print(f"Saved to {outfile}")
+    if args.path.endswith('.db'):
+        print("Processing activities...")
+        activities = process_sqlite_activities(args.path)
+
 
     if activities is not None:
         print("Plotting calendar...")
