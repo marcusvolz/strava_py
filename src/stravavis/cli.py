@@ -24,11 +24,11 @@ def main():
         "path", help="Input path specification to folder with GPX and / or FIT files"
     )
     parser.add_argument(
-        "--vis",
+        "--plot",
         default="all",
         choices=VISUALISATIONS,
         nargs="+",
-        help="Which visualisations to generate",
+        help="Which visualisations to plot",
     )
     parser.add_argument(
         "-o", "--output_prefix", default="strava", help="Prefix for output PNG files"
@@ -102,8 +102,8 @@ def main():
     )
     args = parser.parse_args()
 
-    if "all" in args.vis:
-        args.vis = VISUALISATIONS
+    if "all" in args.plot:
+        args.plot = VISUALISATIONS
 
     # Expand "~" or "~user"
     args.path = os.path.expanduser(args.path)
@@ -140,7 +140,7 @@ def main():
         print("Processing activities...")
         activities = process_activities(args.activities_path)
 
-    if "facets" in args.vis:
+    if "facets" in args.plot:
         from .plot_facets import plot_facets
 
         print("Plotting facets...")
@@ -148,7 +148,7 @@ def main():
         plot_facets(df, output_file=outfile)
         print(f"Saved to {outfile}")
 
-    if "map" in args.vis:
+    if "map" in args.plot:
         from .plot_map import plot_map
 
         print("Plotting map...")
@@ -165,7 +165,7 @@ def main():
         )
         print(f"Saved to {outfile}")
 
-    if "elevations" in args.vis:
+    if "elevations" in args.plot:
         from .plot_elevations import plot_elevations
 
         print("Plotting elevations...")
@@ -173,7 +173,7 @@ def main():
         plot_elevations(df, output_file=outfile)
         print(f"Saved to {outfile}")
 
-    if "landscape" in args.vis:
+    if "landscape" in args.plot:
         from .plot_landscape import plot_landscape
 
         print("Plotting landscape...")
@@ -182,7 +182,7 @@ def main():
         print(f"Saved to {outfile}")
 
     if activities is not None:
-        if "calendar" in args.vis:
+        if "calendar" in args.plot:
             from .plot_calendar import plot_calendar
 
             print("Plotting calendar...")
@@ -200,7 +200,7 @@ def main():
             )
             print(f"Saved to {outfile}")
 
-        if "dumbbell" in args.vis:
+        if "dumbbell" in args.plot:
             from .plot_dumbbell import plot_dumbbell
 
             print("Plotting dumbbell...")

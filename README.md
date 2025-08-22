@@ -53,7 +53,7 @@ stravavis activities --bbox 24.782802,59.922486,25.254511,60.29785`
 To only plot certain visualisations:
 
 ```sh
-stravavis activities --vis map facets landscape
+stravavis activities --plot map facets landscape
 ```
 
 ## Examples
