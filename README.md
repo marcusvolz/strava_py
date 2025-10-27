@@ -27,6 +27,35 @@ Then run from the terminal:
 stravavis --help
 ```
 
+## How to use
+
+If your activity data is in a folder called `activities`, run the following command:
+
+```sh
+stravavis activities
+```
+
+By default, this will create output images prefixed `strava-`.
+
+If you have an `activities.csv` file:
+
+```sh
+stravavis activities --activities_path activities.csv
+```
+
+To only map activities contained within a
+[bounding box](https://boundingbox.klokantech.com/):
+
+```sh
+stravavis activities --bbox 24.782802,59.922486,25.254511,60.29785`
+```
+
+To only plot certain visualisations:
+
+```sh
+stravavis activities --plot map facets landscape
+```
+
 ## Examples
 
 ### Facets
@@ -69,9 +98,7 @@ Requires "activities.csv" from the bulk Strava export.
 
 ![map](https://raw.githubusercontent.com/marcusvolz/strava_py/main/plots/dumbbell001.png "Dumbbell plot")
 
-## How to use
-
-### Bulk export from Strava
+## Bulk export from Strava
 
 The process for downloading data is described on the Strava website here:
 [https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#Bulk],
@@ -92,7 +119,10 @@ but in essence, do the following:
 7. Click the link in email to download zipped folder containing activities
 8. Unzip files
 
-### Process the data
+## Programmatic use
+
+The package can also be used programmatically. The following code snippets demonstrate
+how to use the package to create the visualisations.
 
 The main function for importing and processing activity files expects a path to a
 directory of unzipped GPX and / or FIT files. If required, the
