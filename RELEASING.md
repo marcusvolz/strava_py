@@ -6,7 +6,6 @@
       [![GitHub Actions status](https://github.com/marcusvolz/strava_py/workflows/Test/badge.svg)](https://github.com/marcusvolz/strava_py/actions)
 
 - [ ] Go to the [Releases page](https://github.com/marcusvolz/strava_py/releases) and
-
   - [ ] Click "Draft a new release"
 
   - [ ] Click "Choose a tag"
