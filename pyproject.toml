@@ -40,7 +40,7 @@ dependencies = [
   "fit2gpx",
   "gpxpy",
   "matplotlib",
-  "pandas",
+  "pandas>=2",
   "plotnine",
   "rich",
   "seaborn",
