@@ -50,6 +50,13 @@ To only map activities contained within a
 stravavis activities --bbox 24.782802,59.922486,25.254511,60.29785`
 ```
 
+Or as a shortcut, save bounding-box coordinates to a file:
+
+```sh
+echo 24.782802,59.922486,25.254511,60.29785 > helsinki.bbox
+stravavis activities --bbox helsinki.bbox
+```
+
 To only plot certain visualisations:
 
 ```sh

@@ -128,5 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Strava data
+activities.csv
+activities/
+
+# Arbitrary extension for bounding box coordinates
+*.bbox
+
 # Generated files
 *.png
