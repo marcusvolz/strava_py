@@ -47,7 +47,7 @@ To only map activities contained within a
 [bounding box](https://boundingbox.klokantech.com/):
 
 ```sh
-stravavis activities --bbox 24.782802,59.922486,25.254511,60.29785`
+stravavis activities --bbox 24.782802,59.922486,25.254511,60.29785
 ```
 
 Or as a shortcut, save bounding-box coordinates to a file:
