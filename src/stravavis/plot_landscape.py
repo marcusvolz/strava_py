@@ -10,7 +10,7 @@ def plot_landscape(df, output_file="landscape.png"):
     plt.figure()
 
     # Convert ele to numeric
-    df["ele"] = pd.to_numeric(df["ele"])
+    df = df.assign(ele=pd.to_numeric(df["ele"]))
 
     # Create a list of activity names
     activities = df["name"].unique()

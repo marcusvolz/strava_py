@@ -28,43 +28,53 @@ def plot_dumbbell(
     output_file="dumbbell.png",
 ):
     # Convert activity start date to datetime
-    activities["Activity Date"] = pd.to_datetime(activities["Activity Date"])
+    activities = activities.assign(
+        **{"Activity Date": pd.to_datetime(activities["Activity Date"])}
+    )
 
     # Convert to local timezone (if given)
     if local_timezone:
-        activities["Activity Date"] = (
-            pd.to_datetime(activities["Activity Date"])
-            .dt.tz_localize(tz="UTC", nonexistent="NaT", ambiguous="NaT")
-            .dt.tz_convert(local_timezone)
+        activities = activities.assign(
+            **{
+                "Activity Date": (
+                    pd.to_datetime(activities["Activity Date"])
+                    .dt.tz_localize(tz="UTC", nonexistent="NaT", ambiguous="NaT")
+                    .dt.tz_convert(local_timezone)
+                )
+            }
         )
 
     # Get activity start and end times
-    activities["start"] = activities["Activity Date"]
-    activities["duration"] = pd.to_timedelta(activities["Elapsed Time"], unit="s")
-    activities["end"] = pd.to_datetime(activities["start"] + activities["duration"])
-
-    # Remove activities outside the year_min -> year_max window
-    activities["year"] = activities["Activity Date"].dt.year
+    activities = activities.assign(
+        start=activities["Activity Date"],
+        duration=pd.to_timedelta(activities["Elapsed Time"], unit="s"),
+    )
+    activities = activities.assign(
+        end=pd.to_datetime(activities["start"] + activities["duration"]),
+        year=activities["Activity Date"].dt.year,
+    )
 
     if year_min:
-        activities = activities[activities["year"] >= year_min]
+        activities = activities[activities["year"] >= year_min].copy()
 
     if year_max:
-        activities = activities[activities["year"] <= year_max]
+        activities = activities[activities["year"] <= year_max].copy()
 
     # Get day of year and time of day data
-    activities["dayofyear"] = activities["Activity Date"].dt.dayofyear
-    activities["start_time"] = activities["start"].dt.time
-    activities["end_time"] = activities["end"].dt.time
-    activities["x"] = (
-        activities["start"].dt.hour
-        + activities["start"].dt.minute / 60
-        + activities["start"].dt.second / 60 / 60
-    )
-    activities["xend"] = (
-        activities["end"].dt.hour
-        + activities["end"].dt.minute / 60
-        + activities["end"].dt.second / 60 / 60
+    activities = activities.assign(
+        dayofyear=activities["Activity Date"].dt.dayofyear,
+        start_time=activities["start"].dt.time,
+        end_time=activities["end"].dt.time,
+        x=(
+            activities["start"].dt.hour
+            + activities["start"].dt.minute / 60
+            + activities["start"].dt.second / 60 / 60
+        ),
+        xend=(
+            activities["end"].dt.hour
+            + activities["end"].dt.minute / 60
+            + activities["end"].dt.second / 60 / 60
+        ),
     )
 
     # Create plotnine / ggplot

@@ -20,10 +20,14 @@ def plot_calendar(
     plt.figure()
 
     # Process data
-    activities["Activity Date"] = pd.to_datetime(
-        activities["Activity Date"], format=ACTIVITY_FORMAT
+    activities = activities.assign(
+        **{
+            "Activity Date": pd.to_datetime(
+                activities["Activity Date"], format=ACTIVITY_FORMAT
+            )
+        }
     )
-    activities["date"] = activities["Activity Date"].dt.date
+    activities = activities.assign(date=activities["Activity Date"].dt.date)
     activities = activities.groupby(["date"])["Distance"].sum()
     activities.index = pd.to_datetime(activities.index)
     activities.clip(0, max_dist, inplace=True)
