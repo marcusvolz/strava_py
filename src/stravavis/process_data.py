@@ -14,9 +14,18 @@ from rich.progress import track
 
 def process_file(fpath: str) -> pd.DataFrame | None:
     if fpath.endswith(".gpx"):
-        return process_gpx(fpath)
+        df = process_gpx(fpath)
     elif fpath.endswith(".fit"):
-        return process_fit(fpath)
+        df = process_fit(fpath)
+    else:
+        return None
+
+    if df is not None and not df.empty:
+        # Convert to UTC then strip timezone to avoid concat issues with
+        # incompatible timezone types (gpxpy's SimpleTZ vs datetime.timezone)
+        df = df.assign(time=pd.to_datetime(df["time"], utc=True).dt.tz_localize(None))
+
+    return df
 
 
 # Function for processing an individual GPX file
@@ -143,9 +152,13 @@ def process_data(filenames: list[str]) -> pd.DataFrame:
             pool.close()
             pool.join()
 
+    # Filter out None and empty DataFrames before concatenating
+    processed = [p for p in processed if p is not None and not p.empty]
+
     df = pd.concat(processed)
 
-    df["time"] = pd.to_datetime(df["time"], utc=True)
+    # Add UTC timezone back (was stripped in process_file to allow concat)
+    df = df.assign(time=df["time"].dt.tz_localize("UTC"))
 
     # Save cache
     df.to_pickle(cache_filename)
