@@ -29,7 +29,7 @@ def plot_dumbbell(
 ):
     # Convert activity start date to datetime
     activities = activities.assign(
-        **{"Activity Date": pd.to_datetime(activities["Activity Date"])}
+        **{"Activity Date": pd.to_datetime(activities["Activity Date"], format="mixed")}
     )
 
     # Convert to local timezone (if given)
