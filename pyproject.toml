@@ -17,7 +17,8 @@ keywords = [
   "strava",
   "visualisation",
 ]
-license = { text = "MIT" }
+license = "MIT"
+license-files = [ "LICENSE" ]
 maintainers = [ { name = "Hugo van Kemenade" } ]
 authors = [ { name = "Marcus Volz" } ]
 requires-python = ">=3.10"
@@ -76,11 +77,11 @@ lint.select = [
   "YTT",    # flake8-2020
 ]
 lint.ignore = [
-  "E203",  # Whitespace before ':'
-  "E221",  # Multiple spaces before operator
-  "E226",  # Missing whitespace around arithmetic operator
-  "E241",  # Multiple spaces after ','
-  "UP038", # Makes code slower and more verbose
+  "E203", # Whitespace before ':'
+  "E221", # Multiple spaces before operator
+  "E226", # Missing whitespace around arithmetic operator
+  "E241", # Multiple spaces after ','
 ]
 lint.isort.known-first-party = [ "stravavis" ]
 lint.isort.required-imports = [ "from __future__ import annotations" ]
+lint.future-annotations = true
