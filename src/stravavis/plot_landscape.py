@@ -9,28 +9,19 @@ def plot_landscape(df, output_file="landscape.png"):
     # Create a new figure
     plt.figure()
 
-    # Convert ele to numeric
-    df = df.assign(ele=pd.to_numeric(df["ele"]))
+    # Convert ele to numeric and normalise dist using vectorised groupby
+    df = df.assign(
+        ele=pd.to_numeric(df["ele"]),
+        dist_norm=df.groupby("name")["dist"].transform(
+            lambda x: (x - x.min()) / (x.max() - x.min())
+        ),
+    )
 
-    # Create a list of activity names
-    activities = df["name"].unique()
-
-    # Normalize dist
-    processed = []
-
-    for activity in track(activities, "Processing tracks"):
-        df_i = df[df["name"] == activity].copy()
-        df_i.loc[:, "dist_norm"] = (df_i["dist"] - df_i["dist"].min()) / (
-            df_i["dist"].max() - df_i["dist"].min()
-        )
-        processed.append(df_i)
-
-    df = pd.concat(processed)
-
-    # Plot activities one by one
-    for activity in track(activities, "Plotting activities"):
-        x = df[df["name"] == activity]["dist_norm"]
-        y = df[df["name"] == activity]["ele"]
+    # Process and plot activities
+    for activity in track(df["name"].unique(), "Plotting activities"):
+        activity_data = df[df["name"] == activity]
+        x = activity_data["dist_norm"]
+        y = activity_data["ele"]
         plt.fill_between(x, y, color="black", alpha=0.03, linewidth=0)
         plt.plot(x, y, color="black", alpha=0.125, linewidth=0.25)
 
