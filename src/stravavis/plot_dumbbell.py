@@ -37,7 +37,7 @@ def plot_dumbbell(
         activities = activities.assign(
             **{
                 "Activity Date": (
-                    pd.to_datetime(activities["Activity Date"])
+                    activities["Activity Date"]
                     .dt.tz_localize(tz="UTC", nonexistent="NaT", ambiguous="NaT")
                     .dt.tz_convert(local_timezone)
                 )
