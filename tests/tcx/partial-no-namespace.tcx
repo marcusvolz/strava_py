@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TrainingCenterDatabase>
+  <Activities>
+    <Activity Sport="Biking">
+      <Id>2022-05-16T07:30:00Z</Id>
+      <Lap StartTime="2022-05-16T07:30:00Z">
+        <Track>
+          <Trackpoint>
+            <Time>2022-05-16T07:30:00Z</Time>
+            <AltitudeMeters>101.0</AltitudeMeters>
+          </Trackpoint>
+          <Trackpoint>
+            <Time>2022-05-16T07:30:05Z</Time>
+            <Position>
+              <LatitudeDegrees>45.0100000</LatitudeDegrees>
+              <LongitudeDegrees>7.0100000</LongitudeDegrees>
+            </Position>
+            <AltitudeMeters>102.0</AltitudeMeters>
+          </Trackpoint>
+          <Trackpoint>
+            <Time>2022-05-16T07:30:10Z</Time>
+            <Position>
+              <LatitudeDegrees>45.0110000</LatitudeDegrees>
+              <LongitudeDegrees>7.0110000</LongitudeDegrees>
+            </Position>
+          </Trackpoint>
+          <Trackpoint>
+            <Position>
+              <LatitudeDegrees>45.0120000</LatitudeDegrees>
+              <LongitudeDegrees>7.0120000</LongitudeDegrees>
+            </Position>
+            <AltitudeMeters>104.0</AltitudeMeters>
+          </Trackpoint>
+          <Trackpoint>
+            <Time>2022-05-16T07:30:20Z</Time>
+            <Position>
+              <LatitudeDegrees>45.0130000</LatitudeDegrees>
+            </Position>
+            <AltitudeMeters>105.0</AltitudeMeters>
+          </Trackpoint>
+        </Track>
+      </Lap>
+    </Activity>
+  </Activities>
+</TrainingCenterDatabase>
