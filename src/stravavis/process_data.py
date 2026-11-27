@@ -14,11 +14,12 @@ from rich.progress import track
 
 
 def process_file(fpath: str) -> pd.DataFrame | None:
-    if fpath.endswith(".gpx"):
+    suffix = fpath.lower()
+    if suffix.endswith(".gpx"):
         df = process_gpx(fpath)
-    elif fpath.endswith(".fit"):
+    elif suffix.endswith(".fit"):
         df = process_fit(fpath)
-    elif fpath.endswith(".tcx"):
+    elif suffix.endswith(".tcx"):
         df = process_tcx(fpath)
     else:
         return None
@@ -142,9 +143,9 @@ def _child_text(element: ET.Element, name: str) -> str | None:
 # Ref: https://www8.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd
 def process_tcx(tcxfile: str) -> pd.DataFrame | None:
     # Some exporters (including Strava) write whitespace before the XML
-    # declaration, which is invalid XML, so strip it before parsing
+    # declaration, which is invalid XML, so strip it (and any UTF-8 BOM)
     with open(tcxfile, "rb") as f:
-        content = f.read().lstrip()
+        content = f.read().lstrip().removeprefix(b"\xef\xbb\xbf").lstrip()
 
     try:
         root = ET.fromstring(content)
@@ -186,7 +187,10 @@ def process_tcx(tcxfile: str) -> pd.DataFrame | None:
             except ValueError:
                 continue
             altitude = _child_text(point, "AltitudeMeters")
-            z = float(altitude) if altitude is not None else None
+            try:
+                z = float(altitude) if altitude is not None else None
+            except ValueError:
+                z = None
             t = _child_text(point, "Time")
 
             if x0 is None or y0 is None:
@@ -207,7 +211,12 @@ def process_tcx(tcxfile: str) -> pd.DataFrame | None:
             "lon": lon,
             "lat": lat,
             "ele": pd.Series(ele, dtype="float64"),
-            "time": pd.to_datetime(pd.Series(time, dtype="object"), utc=True),
+            "time": pd.to_datetime(
+                pd.Series(time, dtype="object"),
+                utc=True,
+                format="ISO8601",
+                errors="coerce",
+            ),
             "name": name,
             "dist": dist,
         },
@@ -254,6 +263,8 @@ def process_data(filenames: list[str]) -> pd.DataFrame:
 
     # Filter out None and empty DataFrames before concatenating
     processed = [p for p in processed if p is not None and not p.empty]
+    if not processed:
+        return pd.DataFrame(columns=["lon", "lat", "ele", "time", "name", "dist"])
 
     df = pd.concat(processed)
 

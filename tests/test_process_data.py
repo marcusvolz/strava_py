@@ -84,3 +84,50 @@ def test_process_data_mixed_gpx_and_tcx(tmp_path: Path) -> None:
     assert names == {str(tmp_path / GPX_FILE.name), str(tmp_path / TCX_FILE.name)}
     assert list(df.columns) == COLUMNS
     assert str(df["time"].dt.tz) == "UTC"
+
+
+def test_process_data_indoor_only(tmp_path: Path) -> None:
+    shutil.copy(TCX_INDOOR, tmp_path)
+    filenames = sorted(str(p) for p in tmp_path.glob("*"))
+
+    df = process_data(filenames)
+
+    assert isinstance(df, pd.DataFrame)
+    assert df.empty
+    assert list(df.columns) == COLUMNS
+
+
+def test_process_tcx_bad_altitude_and_time(tmp_path: Path) -> None:
+    content = TCX_PARTIAL.read_text(encoding="utf-8")
+    content = content.replace("<AltitudeMeters>102.0<", "<AltitudeMeters>n/a<")
+    content = content.replace("2022-05-16T07:30:10Z", "not-a-time")
+    bad = tmp_path / "bad-values.tcx"
+    bad.write_text(content, encoding="utf-8")
+
+    df = process_tcx(str(bad))
+
+    assert df is not None
+    assert len(df) == 3
+    assert df["ele"].isna().tolist() == [True, True, False]
+    assert df["time"].isna().tolist() == [False, True, True]
+
+
+def test_process_tcx_bom_and_whitespace(tmp_path: Path) -> None:
+    content = TCX_FILE.read_bytes().lstrip()
+    bom = tmp_path / "bom.tcx"
+    bom.write_bytes(b"\n  " + b"\xef\xbb\xbf" + b"  \n" + content)
+
+    df = process_tcx(str(bom))
+
+    assert df is not None
+    assert len(df) == 60
+
+
+def test_process_file_uppercase_extension(tmp_path: Path) -> None:
+    upper = tmp_path / "ACTIVITY.TCX"
+    shutil.copy(TCX_FILE, upper)
+
+    df = process_file(str(upper))
+
+    assert df is not None
+    assert len(df) == 60
