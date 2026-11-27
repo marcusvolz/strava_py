@@ -21,7 +21,8 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
-        "path", help="Input path specification to folder with GPX and / or FIT files"
+        "path",
+        help="Input path specification to folder with GPX, FIT and / or TCX files",
     )
     parser.add_argument(
         "--plot",

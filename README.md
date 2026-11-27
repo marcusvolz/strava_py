@@ -132,13 +132,13 @@ The package can also be used programmatically. The following code snippets demon
 how to use the package to create the visualisations.
 
 The main function for importing and processing activity files expects a path to a
-directory of unzipped GPX and / or FIT files. If required, the
+directory of unzipped GPX, FIT and / or TCX files. If required, the
 [fit2gpx](https://github.com/dodo-saba/fit2gpx) package provides useful tools for
 pre-processing bulk files exported from Strava, e.g. unzipping activity files (see Use
 Case 3: Strava Bulk Export Tools).
 
 ```python
-df = process_data("<path to folder with GPX and / or FIT files>")
+df = process_data("<path to folder with GPX, FIT and / or TCX files>")
 ```
 
 Some plots use the "activities.csv" file from the Strava bulk export zip. For those

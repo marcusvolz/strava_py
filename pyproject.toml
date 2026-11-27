@@ -47,6 +47,9 @@ dependencies = [
   "seaborn",
   "setuptools; python_version>='3.12'", # TODO Remove when https://github.com/MarvinT/calmap/issues/22 is fixed
 ]
+optional-dependencies.tests = [
+  "pytest",
+]
 urls.Homepage = "https://github.com/marcusvolz/strava_py"
 urls.Source = "https://github.com/marcusvolz/strava_py"
 scripts.stravavis = "stravavis.cli:main"
