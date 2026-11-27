@@ -29,8 +29,7 @@ stravavis --help
 
 ## How to use
 
-If your activity data (GPX, FIT and / or TCX files) is in a folder called `activities`,
-run the following command:
+If your activity data is in a folder called `activities`, run the following command:
 
 ```sh
 stravavis activities
